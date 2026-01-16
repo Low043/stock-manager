@@ -1,3 +1,3 @@
-provider: generic
-url: https://example.com/auto-updates
-updaterCacheDirName: stock-manager-updater
+provider: github
+owner: Low043
+repo: stock-manager
