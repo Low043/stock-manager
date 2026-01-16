@@ -1,11 +1,10 @@
 import { autoUpdater, UpdateInfo, ProgressInfo } from 'electron-updater';
-import { dialog, BrowserWindow } from 'electron';
-import { is } from '@electron-toolkit/utils';
+import { BrowserWindow, dialog } from 'electron';
+import { singleton } from 'tsyringe';
 
+@singleton()
 export class AutoUpdater {
     public initialize(): void {
-        if (is.dev) return;
-
         this.configure();
         this.setupEventHandlers();
         this.checkForUpdates();
@@ -17,10 +16,10 @@ export class AutoUpdater {
     }
 
     private setupEventHandlers(): void {
-        autoUpdater.on('error', (error) => this.onError(error));
-        autoUpdater.on('update-available', (info) => this.onUpdateAvailable(info));
-        autoUpdater.on('download-progress', (progress) => this.onDownloadProgress(progress));
-        autoUpdater.on('update-downloaded', (info) => this.onUpdateDownloaded(info));
+        autoUpdater.on('error', this.onError.bind(this));
+        autoUpdater.on('update-available', this.onUpdateAvailable.bind(this));
+        autoUpdater.on('download-progress', this.onDownloadProgress.bind(this));
+        autoUpdater.on('update-downloaded', this.onUpdateDownloaded.bind(this));
     }
 
     private checkForUpdates(): void {

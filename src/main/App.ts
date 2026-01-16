@@ -1,19 +1,17 @@
-import { electronApp, optimizer } from '@electron-toolkit/utils';
+import { electronApp, optimizer, is } from '@electron-toolkit/utils';
 import { BrowserWindow, app } from 'electron';
 import { MainWindow } from './windows/MainWindow';
 import { AutoUpdater } from './services/AutoUpdater';
 import { IPCHandler } from './services/IPCHandler';
+import { injectable } from 'tsyringe';
 
+@injectable()
 export class App {
-    private mainWindow: MainWindow;
-    private autoUpdater: AutoUpdater;
-    private ipcHandler: IPCHandler;
-
-    constructor() {
-        this.mainWindow = new MainWindow();
-        this.autoUpdater = new AutoUpdater();
-        this.ipcHandler = new IPCHandler();
-    }
+    constructor(
+        private readonly mainWindow: MainWindow,
+        private readonly autoUpdater: AutoUpdater,
+        private readonly ipcHandler: IPCHandler
+    ) {}
 
     public start(): void {
         app.on('ready', this.configure.bind(this));
@@ -21,9 +19,9 @@ export class App {
     }
 
     private configure(): void {
+        if (!is.dev) this.autoUpdater.initialize();
         this.mainWindow.create();
         this.ipcHandler.register();
-        this.autoUpdater.initialize();
 
         electronApp.setAppUserModelId('com.low043.stockmanager');
 

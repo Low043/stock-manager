@@ -1,4 +1,5 @@
 import { ipcMain, IpcMainEvent } from 'electron';
+import { singleton } from 'tsyringe';
 
 type IPCCallback = (event: IpcMainEvent, ...args: unknown[]) => void;
 
@@ -7,6 +8,7 @@ interface IPCChannel {
     handler: IPCCallback;
 }
 
+@singleton()
 export class IPCHandler {
     private channels: IPCChannel[] = [{ channel: 'ping', handler: this.onPing.bind(this) }];
 
