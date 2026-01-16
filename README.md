@@ -34,23 +34,26 @@ $ npm run build:linux
 ```
 
 ### Updating
+
 1. **Change packet version:**
-   ```bash
-   npm version patch   # 1.0.0 → 1.0.1
-   # ou
-   npm version minor   # 1.0.0 → 1.1.0
-   # ou
-   npm version major   # 1.0.0 → 2.0.0
-   ```
+
+    ```bash
+    npm version patch   # 1.0.0 → 1.0.1
+    # ou
+    npm version minor   # 1.0.0 → 1.1.0
+    # ou
+    npm version major   # 1.0.0 → 2.0.0
+    ```
 
 2. **Creating release drafts:**
-   ```bash
-   npm run publish:linux   # Linux
-   npm run publish:win     # Windows
-   npm run publish:mac     # MacOS
-   npm run publish         # All platforms
-   ```
+
+    ```bash
+    npm run publish:linux   # Linux
+    npm run publish:win     # Windows
+    npm run publish:mac     # MacOS
+    npm run publish         # All platforms
+    ```
 
 3. **Publishing release:**
-   - Go to release section on github repo
-   - Change description and **Publish release**
+    - Go to release section on github repo
+    - Change description and **Publish release**
