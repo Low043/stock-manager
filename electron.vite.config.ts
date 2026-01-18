@@ -11,7 +11,12 @@ export default defineConfig({
                     transform: { legacyDecorator: true, decoratorMetadata: true }
                 }
             })
-        ]
+        ],
+        build: {
+            rollupOptions: {
+                external: ['better-sqlite3']
+            }
+        }
     },
     preload: {},
     renderer: {}

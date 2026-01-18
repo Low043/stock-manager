@@ -11,6 +11,7 @@ files:
   - '!{tsconfig.json,tsconfig.node.json,tsconfig.web.json}'
 asarUnpack:
   - resources/**
+  - node_modules/better-sqlite3/**
 win:
   executableName: stock-manager
   icon: resources/icon.ico
@@ -40,7 +41,7 @@ linux:
   icon: resources/icon.png
 appImage:
   artifactName: ${name}-${version}.${ext}
-npmRebuild: false
+npmRebuild: true
 publish:
   provider: github
   owner: Low043

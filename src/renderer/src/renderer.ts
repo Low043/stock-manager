@@ -10,9 +10,15 @@ function doAThing(): void {
     replaceText('.chrome-version', `Chromium v${versions.chrome}`);
     replaceText('.node-version', `Node v${versions.node}`);
 
-    const ipcHandlerBtn = document.getElementById('ipcHandler');
-    ipcHandlerBtn?.addEventListener('click', () => {
-        window.electron.ipcRenderer.send('ping');
+    const pingButton = document.getElementById('ping');
+    pingButton?.addEventListener('click', () => {
+        window.electron.ipcRenderer.invoke('ping');
+    });
+
+    const crudUsersButton = document.getElementById('crud-users');
+    crudUsersButton?.addEventListener('click', async () => {
+        const users = await window.electron.ipcRenderer.invoke('user:create');
+        console.log('All Users:', users);
     });
 }
 
