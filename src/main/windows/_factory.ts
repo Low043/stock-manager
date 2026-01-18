@@ -20,6 +20,7 @@ export class WindowFactory {
             show: false, // Start hidden (will show on 'ready-to-show' event)
             webPreferences: {
                 preload: path.join(__dirname, '../preload/index.js'),
+                contextIsolation: true,
                 sandbox: false
             }
         });

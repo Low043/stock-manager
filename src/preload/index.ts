@@ -2,6 +2,7 @@ import { electronAPI } from '@electron-toolkit/preload';
 import { contextBridge } from 'electron';
 
 const api = {};
+export type api = typeof api;
 
 if (process.contextIsolated) {
     try {
