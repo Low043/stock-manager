@@ -1,5 +1,5 @@
 import type { BrowserWindow } from 'electron';
-import { WindowFactory } from '../services/WindowFactory';
+import { WindowFactory } from './_factory';
 import { singleton } from 'tsyringe';
 
 @singleton()

@@ -2,7 +2,7 @@ import { electronApp, optimizer, is } from '@electron-toolkit/utils';
 import { BrowserWindow, app } from 'electron';
 import { MainWindow } from './windows/MainWindow';
 import { AutoUpdater } from './services/AutoUpdater';
-import { IPCHandler } from './services/IPCHandler';
+import { IPCHandler } from './ipc';
 import { injectable } from 'tsyringe';
 
 @injectable()
@@ -18,10 +18,10 @@ export class App {
         app.on('window-all-closed', this.quit.bind(this));
     }
 
-    private configure(): void {
+    private async configure(): Promise<void> {
         if (!is.dev) this.autoUpdater.initialize();
+        await this.ipcHandler.register();
         this.mainWindow.create();
-        this.ipcHandler.register();
 
         electronApp.setAppUserModelId('com.low043.stockmanager');
 

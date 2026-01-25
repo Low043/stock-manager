@@ -12,7 +12,7 @@ function doAThing(): void {
 
     const ipcHandlerBtn = document.getElementById('ipcHandler');
     ipcHandlerBtn?.addEventListener('click', () => {
-        window.electron.ipcRenderer.send('ping');
+        window.electron.ipcRenderer.invoke('ping');
     });
 }
 
