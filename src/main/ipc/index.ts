@@ -1,5 +1,5 @@
-import type { IPCRoutes, TemplateController } from './_template';
-import { singleton } from 'tsyringe';
+import type { IPCRoutes, TemplateController } from './controllers/_template';
+import { singleton, container } from 'tsyringe';
 import { ipcMain } from 'electron';
 
 type ImportedController = { default: new () => TemplateController };
@@ -23,10 +23,10 @@ export class IPCHandler {
     }
 
     private async loadControllers(): Promise<void> {
-        const controllers = import.meta.glob('./controllers/*.ts') as DynamicImportedControllers;
+        const controllers = import.meta.glob('./controllers/[^_]*.ts') as DynamicImportedControllers;
         for (const importController of Object.values(controllers)) {
             const controller = await importController();
-            const controllerInstance = new controller.default();
+            const controllerInstance = container.resolve(controller.default);
             this.routes = { ...this.routes, ...controllerInstance.getRoutes() };
         }
     }
